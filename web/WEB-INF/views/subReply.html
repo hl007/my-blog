@@ -1,0 +1,18 @@
+<li th:id="${reply.r_id}">
+    <!-- Avatar -->
+    <div class="comment-avatar"><img th:src="@{${reply.r_avatar}}" alt=""/></div>
+    <!-- Contenedor del Comentario -->
+    <div class="comment-box">
+        <div class="comment-head">
+            <h6 class="comment-name by-author" th:text="${reply.r_username}" th:if="${reply.r_username}=='hl007'"></h6>
+            <h6 class="comment-name" th:text="${reply.r_username}" th:if="${reply.r_username}!='hl007'"></h6>
+            <h6 style="font-weight:200" class="comment-name" th:text="${reply.r_time}"></h6>
+            <i th:onclick="'javascript:hide_show('+${reply.c_id}+',\''+${reply.r_username}+'\')'" th:id="'reply'+${reply.r_id}" class="fa fa-reply"></i>
+        </div>
+        <div class="comment-content">
+            <my th:text="${reply.r_message}"></my>
+        </div>
+    </div>
+</li>
+
+

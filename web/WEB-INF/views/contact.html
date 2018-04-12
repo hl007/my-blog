@@ -1,0 +1,196 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+  <!-- META DATA -->
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="description" content="Free Bootstrap Themes by HTML5XCSS3 dot com - Free Responsive Html5 Templates" />
+	<meta name="author" content="#" />
+
+	<title>Contact me</title>
+  
+	<!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" th:href="@{/resources/css/bootstrap.min.css}"  type="text/css" />
+	
+	<!-- Owl Carousel Assets -->
+    <link th:href="@{/resources/owl-carousel/owl.carousel.css}" rel="stylesheet" />
+    <!-- <link href="owl-carousel/owl.theme.css" rel="stylesheet"> -->
+	
+	<!-- Custom CSS -->
+    <link rel="stylesheet" th:href="@{/resources/css/style.css}" />
+	
+	<!-- Custom Fonts -->
+    <link rel="stylesheet" th:href="@{/resources/font-awesome-4.4.0/css/font-awesome.min.css}"  type="text/css" />
+	<link href='http://fonts.googleapis.com/css?family=Asap:400,700' rel='stylesheet' type='text/css' />
+	
+	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script th:src="@{/resources/js/html5shiv.js}"></script>
+        <script th:src="@{/resources/js/respond.min.js}"></script>
+    <![endif]-->
+	
+</head>
+
+<body class="sub-page">
+<!-- /////////////////////////////////////////Navigation -->
+<nav class="navbar navbar-default navbar-fixed-top">
+	<div class="container">
+		<!-- Brand and toggle get grouped for better mobile display -->
+		<div class="navbar-header page-scroll">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand page-scroll" th:href="@{/home}">RMX</a>
+		</div>
+
+		<!-- Collect the nav links, forms, and other content for toggling -->
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav navbar-right">
+				<li>
+					<a class="page-scroll" th:href="@{/home}">Blog</a>
+				</li>
+				<li sec:authorize="isAuthenticated() and principal.username=='hl007'">
+					<a class="page-scroll" href="/edit">Edit</a>
+				</li>
+				<li>
+					<a class="page-scroll" th:href="@{/about}">About</a>
+				</li>
+				<li>
+					<a class="page-scroll" th:href="@{/contact}">Contact</a>
+				</li>
+			</ul>
+		</div>
+		<!-- /.navbar-collapse -->
+	</div>
+	<!-- /.container-fluid -->
+</nav>
+<!-- Navigation -->
+
+<!-- Background Gradients-->
+<div  class="site-gradients">
+	<div class="site-gradients-media">
+		<figure>
+			<img th:src="@{/resources/images/banner1.jpg}" alt="PcLGXNjMTdiFVKTrElCl__DSC2245" sizes="(max-width: 1617px) 100vw, 1617px" height="1080" width="1617" />
+		</figure>
+	</div>
+</div>
+
+<header class="container">
+	<div class="site-branding">
+		<h1 class="site-title">
+			<a th:href="@{/home}">
+				<span>RMX</span>
+			</a>
+		</h1>
+
+		<h2 class="site-description">Welcome
+			<my sec:authorize="isAuthenticated()">
+				&nbsp;<strong><my sec:authentication="name" style="color:palevioletred"></my></strong>
+			</my>!
+			<my sec:authorize="isAuthenticated()">
+				&nbsp;&nbsp;<a onclick="document.getElementById('_form').submit();" style="color:red">Logout</a>
+			</my>
+			<form id="_form" method="post" th:action="@{/logout}">
+				<input type="hidden" name="name" value="value" />
+			</form>
+		</h2>
+	</div>
+</header>
+
+<!-- /////////////////////////////////////////Content -->
+<div id="page-content" class="single-page">
+	<div class="container">
+		<div class="row">
+			<div id="main-content">
+				<article>
+					<div class="art-content">
+						<div class="row">
+							<div class="col-md-4 box-item">
+								<h3>Contact Info</h3>
+								<span>If you have any suggestion, please leave your message here.</span><br/> <br/>
+								<p>China, Nanjing Jiangning<br/>
+									rmx</p>
+								<p>+86 18896558387<br/></p>
+								<p>18896558387@163.com</p>
+							</div>
+							<div class="col-md-8">
+								<h3>Contact Form</h3>
+								<form name="form" method="post" th:action="@{/contact/submit}">
+									<div class="row">
+										<div class="col-md-6">
+											<div class="form-group">
+												<input type="text" class="form-control input-lg" name="username" id="username" placeholder="Enter name" required="required" />
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<input type="email" class="form-control input-lg" name="email" id="email" placeholder="Enter email" required="required" />
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-12">
+											<div class="form-group">
+												<input type="text" class="form-control input-lg" name="subject" id="subject" placeholder="Subject" required="required" />
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-12">
+											<div class="form-group">
+													<textarea name="message" id="message" class="form-control" rows="4" cols="25" required="required"
+															  placeholder="Message" style="height: 190px;"></textarea>
+											</div>
+											<button type="submit" class="btn btn-skin btn-block" name="submitcontact" id="submitcontact">Submit</button>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</article>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+	<div class="bottom-footer">
+		<div class="container">
+			<p style="font-family:arial;">Copyright&copy; 2018 rmx</p>
+		</div>
+	</div>
+</footer>
+
+<!-- jQuery -->
+<script type="text/javascript" th:src="@{/resources/js/jquery-2.1.1.js}"></script>
+<script type="text/javascript" th:src="@{/resources/js/bootstrap.min.js}"></script>
+
+<!-- Custom Theme JavaScript -->
+<script th:src="@{/resources/js/agency.js}"></script>
+
+<!-- Plugin JavaScript -->
+<script th:src="@{/resources/js/jquery.easing.min.js}"></script>
+<script th:src="@{/resources/js/classie.js}"></script>
+<script th:src="@{/resources/js/cbpAnimatedHeader.js}"></script>
+
+<!-- Google Map -->
+<script>
+    $('.maps').click(function () {
+        $('.maps iframe').css("pointer-events", "auto");
+    });
+
+    $( ".maps" ).mouseleave(function() {
+        $('.maps iframe').css("pointer-events", "none");
+    });
+</script>
+</body>
+</html>

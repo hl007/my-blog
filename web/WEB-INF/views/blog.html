@@ -1,0 +1,412 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+  <!-- META DATA -->
+	<meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Free Bootstrap Themes by HTML5XCSS3 dot com - Free Responsive Html5 Templates" />
+    <meta name="author" content="#" />
+
+	<title th:text="${blog.title}+'-'+${blog.summary}"></title>
+  
+	<!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" th:href="@{/resources/css/bootstrap.min.css}"  type="text/css" />
+	
+	<!-- Owl Carousel Assets -->
+    <link th:href="@{/resources/owl-carousel/owl.carousel.css}" rel="stylesheet" />
+    <!-- <link href="owl-carousel/owl.theme.css" rel="stylesheet"> -->
+	
+	<!-- Custom CSS -->
+    <link rel="stylesheet" th:href="@{/resources/css/style.css}" />
+	
+	<!-- Custom Fonts -->
+    <link rel="stylesheet" th:href="@{/resources/font-awesome-4.4.0/css/font-awesome.min.css}"  type="text/css" />
+	<link href='http://fonts.googleapis.com/css?family=Asap:400,700' rel='stylesheet' type='text/css' />
+	
+	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+	<script th:src="@{/resources/js/html5shiv.js}"></script>
+	<script th:src="@{/resources/js/respond.min.js}"></script>
+    <![endif]-->
+
+	<link rel="stylesheet" href="/resources/kindeditor/themes/default/default.css" />
+	<link rel="stylesheet" href="/resources/kindeditor/plugins/code/prettify.css" />
+	<script charset="utf-8" src="/resources/kindeditor/kindeditor-all.js"></script>
+	<script charset="utf-8" src="/resources/kindeditor/lang/zh-CN.js"></script>
+	<script charset="utf-8" src="/resources/kindeditor/plugins/code/prettify.js"></script>
+	<script charset="utf-8" src="/resources/kindeditor/plugins/code/code.js"></script>
+
+	<!-- Go to www.addthis.com/dashboard to customize your tools -->
+	<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5aa0fab224ba3fa1"></script>
+
+	<script language="javascript">
+        var boolean=true;
+        function hide_show(c_id,r_username){
+            var reply_id="form"+c_id;
+            var reply=document.getElementById(reply_id);
+            var textareaId="textarea"+c_id;
+            if(boolean){
+                reply.style.display="block";
+                document.getElementById(textareaId).value="reply "+r_username+": ";
+                boolean=false;
+            }
+            else{
+                reply.style.display="none";
+                document.getElementById(textareaId).value="";
+                boolean=true;
+            }
+        }
+	</script>
+
+	<script language="javascript">
+        var boolean2=true;
+        function hide_show2(c_id){
+            var reply_id="form"+c_id;
+            var reply=document.getElementById(reply_id);
+            var textareaId="textarea"+c_id;
+            if(boolean2){
+                reply.style.display="block";
+                boolean2=false;
+            }
+            else{
+                reply.style.display="none";
+                boolean2=true;
+            }
+        }
+	</script>
+	
+</head>
+
+<body class="sub-page" onload="Content()">
+	<!-- /////////////////////////////////////////Navigation -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand page-scroll" th:href="@{/home}">RMX</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+					<li>
+                        <a class="page-scroll" th:href="@{/home}">Blog</a>
+                    </li>
+					<li sec:authorize="isAuthenticated() and principal.username=='hl007'">
+						<a class="page-scroll" href="/edit">Edit</a>
+					</li>
+                    <li>
+                        <a class="page-scroll" th:href="@{/about}">About</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" th:href="@{/contact}">Contact</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+	<!-- Navigation -->
+	
+	<!-- Background Gradients-->
+	<div  class="site-gradients">
+		<div class="site-gradients-media">
+			<figure>
+				<img th:src="@{/resources/images/banner1.jpg}" alt="PcLGXNjMTdiFVKTrElCl__DSC2245" sizes="(max-width: 1617px) 100vw, 1617px" height="1080" width="1617" />
+			</figure>
+		</div>
+	</div>
+
+	<header class="container">
+		<div class="site-branding">
+			<h1 class="site-title">
+				<a th:href="@{/home}">
+					<span>RMX</span>
+				</a>
+			</h1>
+
+			<h2 class="site-description">Welcome
+				<my sec:authorize="isAuthenticated()">
+					&nbsp;<strong><my sec:authentication="name" style="color:palevioletred"></my></strong>
+				</my>!
+				<my sec:authorize="isAuthenticated()">
+					&nbsp;&nbsp;<a onclick="document.getElementById('_form').submit();" style="color:red">Logout</a>
+				</my>
+				<form id="_form" method="post" th:action="@{/logout}">
+					<input type="hidden" name="name" value="value" />
+				</form>
+			</h2>
+		</div>
+	</header>
+
+	<!-- /////////////////////////////////////////Content -->
+	<div id="page-content" class="single-page">
+		<div class="container" >
+			<div class="row">
+				<div id="main-content" style="background: #dee1e3">
+					<article>
+						<img th:src="${blog.pathname}" />
+						<div class="art-content">
+							<h1 th:text="${blog.title}"></h1>
+							<div class="info">By <a href="#" th:text="${blog.name}"></a> on <my th:text="${blog.date}"></my>
+								&nbsp;&nbsp;&nbsp;&nbsp;<strong>TAGS:</strong>
+								&nbsp;<my class="label label-info" th:text="${blog.tag1}"></my>
+								&nbsp;<my class="label label-info" th:text="${blog.tag2}"></my>
+								&nbsp;<my class="label label-info" th:text="${blog.tag3}"></my>
+								&nbsp;<my class="label label-info" th:text="${blog.tag4}"></my>
+							</div>
+
+							<script th:inline="javascript" >
+                                function Content() {
+                                    p.innerHTML = [[${blog.content}]];
+                                }
+							</script>
+
+							<my id="p"></my>
+						</div>
+					</article>
+
+					<div class="comments-container">
+
+						<my sec:authorize="!isAuthenticated()">
+						<p style="font-size: medium">Please <a th:href="@{/login}">signIn</a> or <a th:href="@{/register}">signUp.</a></p>
+						</my>
+
+						<h6>Comments</h6>
+
+						<!--初始化评论-->
+						<my>
+							<ul id="comments-list" class="comments-list">
+								<li th:each="comment:${commentList}" th:id="'single'+${comment.c_id}">
+									<div class="comment-main-level">
+										<!-- Avatar -->
+										<div class="comment-avatar"><img th:src="@{${comment.c_avatar}}" alt="" /></div>
+										<!-- Contenedor del Comentario -->
+										<div class="comment-box">
+											<div class="comment-head">
+												<h6 class="comment-name by-author" th:text="${comment.c_username}" th:if="${comment.c_username}=='hl007'"></h6>
+												<h6 class="comment-name" th:text="${comment.c_username}" th:if="${comment.c_username}!='hl007'"></h6>
+												<h6 style="font-weight:200" class="comment-name" th:text="${comment.c_time}"></h6>
+												<i th:onclick="'javascript:hide_show2('+${comment.c_id}+')'" th:id="'i'+${comment.c_id}" class="fa fa-reply"></i>
+											</div>
+											<div class="comment-content">
+												<my th:text="${comment.c_message}"></my>
+											</div>
+										</div>
+									</div>
+									<!-- Respuestas de los comentarios -->
+									<ul class="comments-list reply-list">
+										<li th:each="reply:${comment.replyList}" th:id="${reply.r_id}">
+											<!-- Avatar -->
+											<div class="comment-avatar"><img th:src="@{${reply.r_avatar}}" alt=""/></div>
+											<!-- Contenedor del Comentario -->
+											<div class="comment-box">
+												<div class="comment-head">
+													<h6 class="comment-name by-author" th:text="${reply.r_username}" th:if="${reply.r_username}=='hl007'"></h6>
+													<h6 class="comment-name" th:text="${reply.r_username}" th:if="${reply.r_username}!='hl007'"></h6>
+													<h6 style="font-weight:200" class="comment-name" th:text="${reply.r_time}" ></h6>
+													<i th:onclick="'javascript:hide_show('+${comment.c_id}+',\''+${reply.r_username}+'\')'" th:id="'reply'+${reply.r_id}" class="fa fa-reply"></i>
+												</div>
+												<div class="comment-content">
+													<my th:text="${reply.r_message}"></my>
+												</div>
+											</div>
+										</li>
+										<!--ajax加载回复-->
+										<my th:id="'ajaxReply'+${comment.c_id}"></my>
+
+									</ul>
+
+									<!--回复框-->
+									<div class="comment-reply" style="text-align:right">
+										<form role="form" th:id="'form'+${comment.c_id}" th:action="@{'/reply/'+${comment.c_id}}" method="post" style="display:none;">
+											<div class="form-group">
+												<textarea  th:id="'textarea'+${comment.c_id}"  name="r_message" class="form-control" rows="2" placeholder="your reply" autofocus=""></textarea>
+											</div>
+											<button type="button" th:onclick="'javascript:reply('+${comment.c_id}+')'" th:id="'submit'+${comment.c_id}" class="[ btn btn-success ]" >Reply</button>
+										</form>
+									</div>
+								</li>
+								<!--ajax加载评论-->
+								<my id="ajaxComment"></my>
+							</ul>
+						</my>
+
+						<!--评论框-->
+						<br/>
+						<form role="form"  id="ajaxForm" th:action="'/comment/'+${blog.id}" method="post">
+							<div class="form-group">
+								<textarea id="ajaxTextarea" name="c_message" class="form-control" rows="3" placeholder="your comment" autofocus=""></textarea>
+							</div>
+							<button type="button" id="submit" class="[ btn btn-success ]">Submit</button>
+						</form>
+					</div>
+
+
+
+					<div class="widget wid-related">
+						<div class="heading"><h4>Related Post</h4></div>
+						<div class="content">
+							<div class="row">
+								<my th:each="blog: ${blogList}" th:id="'title_' + ${blog.title}">
+									<div class="col-md-4">
+										<div class="wrap-col">
+											<a th:href="@{'/blog/'+${blog.id}}"><img th:src="@{${blog.pathname}}" /></a>
+											<h4><a th:href="@{'/blog/'+${blog.id}}" th:text="${blog.title}"></a></h4>
+										</div>
+									</div>
+								</my>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- FOOTER -->
+	<footer>
+		<div class="wrap-footer">
+			<div class="container">
+				<div class="row">
+					<div class="col-footer col-md-3">
+						<h2 class="footer-title">About me</h2>
+						<div class="textwidget">The author graduated from Soochow University in 2016, and majored in bioinformatics. Recently working at a biotechnology company in Nanjing and engaging in data analysis. What's more, loving programming and hoping to be a professional Java developer.
+						</div>
+					</div>
+					<div class="col-footer col-md-3 widget_recent_entries">
+						<h2 class="footer-title">Recent Posts</h2>
+						<ul>
+							<li th:each="title: ${titleList}" th:id="'title_' + ${title.title}"><a th:href="@{'/blog/'+${title.id}}" th:text="${title.title}"></a></li>
+						</ul>
+					</div>
+					<div class="col-footer col-md-3">
+						<h2 class="footer-title">NEWS LETTER</h2>
+						If you want to receive our latest news send directly to your email, please leave your email address bellow. Subscription is free and you can cancel anytime.
+						<form id="subscribeForm" th:action="@{/subscribe}" method="post">
+							<input type="text" id="your email" name="email" value="" size="40" placeholder="Your Email" />
+							<input type="button"  id="subscribe" value="SUBSCRIBE" class="btn btn-skin" />
+						</form>
+						<h6 id="sucess" style="display: none;color: #d43f3a">Successful subscription</h6>
+					</div>
+					<div class="col-footer col-md-3">
+						<h2 class="footer-title">Tags</h2>
+						<div class="footer-tags">
+							<my th:each="tag: ${tagSet}" th:id="'tag_' + ${tag}">
+								<a th:href="@{'/tag/'+${tag}}" th:text="${tag}"></a>
+							</my>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="bottom-footer">
+			<div class="container">
+				<p style="font-family:arial;">Copyright&copy; 2018 rmx</p>
+			</div>
+		</div>
+	</footer>
+  
+	<!-- jQuery -->
+	<script type="text/javascript" th:src="@{/resources/js/jquery-2.1.1.js}"></script>
+	<script type="text/javascript" th:src="@{/resources/js/bootstrap.min.js}"></script>
+	
+	<!-- Custom Theme JavaScript -->
+	<script th:src="@{/resources/js/agency.js}"></script>
+
+	<!-- Plugin JavaScript -->
+	<script th:src="@{/resources/js/jquery.easing.min.js}"></script>
+	<script th:src="@{/resources/js/classie.js}"></script>
+	<script th:src="@{/resources/js/cbpAnimatedHeader.js}"></script>
+
+	<script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+
+	<!--评论ajax-->
+	<script type="text/javascript">
+        var append="";
+        $("#submit").click(function(){
+            var targetUrl = $("#ajaxForm").attr("action");
+            var data = $("#ajaxForm").serialize();
+            $.ajax({
+                type: "post",
+                url: targetUrl,
+                data: data,
+                success: function (response) {
+                    append=append+response;
+                    $("#ajaxComment").html(append);
+                }
+            })
+
+            document.getElementById("ajaxTextarea").value="";
+
+        })
+	</script>
+
+	<!--回复ajax-->
+	<script type="text/javascript">
+		<!--初始化reply数组-->
+        var arr=new Array(1000),i=arr.length;
+        while(i--){arr[i] = "";}
+        function reply(c_id) {
+            var f_id="form"+c_id;;
+            var targetUrl =$("#"+f_id).attr("action");
+            var data = $("#"+f_id).serialize();
+            $.ajax({
+                type: "post",
+                url: targetUrl,
+                data: data,
+                success: function (response) {
+                    console.log("test");
+                    arr[c_id] = arr[c_id] + response;
+                    var tmp="#ajaxReply"+c_id;
+                    $(tmp).html(arr[c_id]);
+                }
+            })
+
+			var textareaId="textarea"+c_id;
+            document.getElementById(textareaId).value="";
+			document.getElementById(f_id).style.display="none";
+
+        }
+	</script>
+
+	<!--邮件订阅-->
+	<script type="text/javascript">
+        $("#subscribe").click(function(){
+            var targetUrl = $("#subscribeForm").attr("action");
+            var data = $("#subscribeForm").serialize();
+            $.ajax({
+                type: "post",
+                url: targetUrl,
+                data: data,
+                success: function (response) {
+                    document.getElementById("your email").value="";
+                    document.getElementById("sucess").style.display="block";
+                    displaySucess();
+                }
+            })
+        })
+	</script>
+
+	<script language="javascript">
+        function codefans(){
+            document.getElementById("sucess").style.display="none";
+        }
+        function displaySucess() {
+            setTimeout("codefans()",4000);
+        }
+	</script>
+
+</body>
+</html>

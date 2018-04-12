@@ -1,0 +1,6 @@
+<ehcache>
+  <cache name="blog"
+          maxBytesLocalHeap="50m"
+          timeToLiveSeconds="0">
+  </cache>
+</ehcache>
